@@ -1,0 +1,142 @@
+@import "tailwindcss";
+
+/* ————————————————————————————————
+   JOHN FLANDA — Design tokens (V1)
+   Single source of truth. No token
+   may be duplicated in components.
+   ———————————————————————————————— */
+:root {
+  --bg: #080a10;
+  --surface-1: #0e111a;
+  --surface-2: #141824;
+  --surface-3: #1a1f2d;
+
+  --border: #252a3a;
+  --border-active: #363c52;
+
+  --text-primary: #f1f3f7;
+  --text-secondary: #a4a9b8;
+  --text-muted: #686f82;
+
+  --brand-navy: #282d64;
+  --brand-red: #f1022d;
+  --brand-orange: #ff914d;
+
+  --positive: #2dd4a8;
+  --neutral: #8991a5;
+}
+
+@theme inline {
+  --color-base: var(--bg);
+  --color-panel: var(--surface-1);
+  --color-raise: var(--surface-2);
+  --color-overlay: var(--surface-3);
+
+  --color-line: var(--border);
+  --color-line-active: var(--border-active);
+
+  --color-ink: var(--text-primary);
+  --color-sub: var(--text-secondary);
+  --color-mute: var(--text-muted);
+
+  --color-navy: var(--brand-navy);
+  --color-risk: var(--brand-red);
+  --color-accent: var(--brand-orange);
+
+  --color-up: var(--positive);
+  --color-flat: var(--neutral);
+
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-jetbrains-mono), ui-monospace, SFMono-Regular, monospace;
+}
+
+/* ————— Base ————— */
+body {
+  background: var(--bg);
+  color: var(--text-primary);
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: var(--brand-navy);
+  color: #f1f3f7;
+}
+
+:focus-visible {
+  outline: 2px solid var(--brand-orange);
+  outline-offset: 2px;
+}
+
+/* ————— Layout helper: shared 1400px grid ————— */
+.site-container {
+  width: 100%;
+  max-width: 1400px;
+  margin-inline: auto;
+  padding-inline: 32px;
+}
+
+@media (max-width: 1023px) {
+  .site-container {
+    padding-inline: 24px;
+  }
+}
+
+@media (max-width: 639px) {
+  .site-container {
+    padding-inline: 16px;
+  }
+}
+
+/* ————— Hero technical background (atmospheric only) ————— */
+.hero-grid {
+  background-image:
+    linear-gradient(to right, rgb(37 42 58 / 0.4) 1px, transparent 1px),
+    linear-gradient(to bottom, rgb(37 42 58 / 0.4) 1px, transparent 1px);
+  background-size: 48px 48px;
+  mask-image: radial-gradient(
+    ellipse 90% 85% at 28% 18%,
+    black 25%,
+    transparent 78%
+  );
+  -webkit-mask-image: radial-gradient(
+    ellipse 90% 85% at 28% 18%,
+    black 25%,
+    transparent 78%
+  );
+}
+
+/* ————— Subtle section reveal ————— */
+.reveal {
+  opacity: 0;
+  transform: translateY(12px);
+  transition:
+    opacity 0.5s ease,
+    transform 0.5s ease;
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
